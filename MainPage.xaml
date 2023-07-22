@@ -2,21 +2,43 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Metero.MainPage"
-             BackgroundColor="#1f1f1f">
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+             BackgroundColor="#1f1f1f"
+             >
+        <AbsoluteLayout
+            Margin="30"
+            >
             <Label
+                AbsoluteLayout.LayoutBounds="0.5, 0.4"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                
                 x:Name="SpeedLabel"
                 Text="0"
-                SemanticProperties.HeadingLevel="Level1"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="80"
-                HorizontalOptions="Center" 
-                VerticalOptions="Center"
-                TextColor="#ed5353"/>
-        </VerticalStackLayout>
-    </ScrollView>
+                FontSize="120"
+                TextColor="#ed5353"
+                FontFamily="BaiJamjuree-Medium"/>
+
+            <Label
+                AbsoluteLayout.LayoutBounds="0.5, 0.6"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                
+                x:Name="TopSpeedLabel"
+                Text="0"
+                FontSize="50"
+                TextColor="#b03131"
+                FontFamily="BaiJamjuree-Medium"/>
+
+            <Button
+                AbsoluteLayout.LayoutBounds="1, 0"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                
+                Text="RESET"
+                Clicked="OnResetTopSpeed"
+                BackgroundColor="#b03131"
+                FontSize="25"
+                FontFamily="BaiJamjuree-Medium"
+                TextColor="#fff"
+                
+                />
+
+        </AbsoluteLayout>
 </ContentPage>

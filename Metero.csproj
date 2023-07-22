@@ -48,6 +48,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\BaiJamjuree-Medium.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Geolocator.Plugin" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
