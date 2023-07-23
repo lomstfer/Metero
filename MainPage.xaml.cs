@@ -16,18 +16,50 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-        TurnOnGPS();
-        Loop();
+        Start();
     }
 
-    float Lerp(float firstFloat, float secondFloat, float by)
+    private float Lerp(float firstFloat, float secondFloat, float by)
     {
         return firstFloat * (1 - by) + secondFloat * by;
     }
 
-    void OnResetTopSpeed(object o, EventArgs e)
+    private void OnResetTopSpeed(object o, EventArgs e)
     {
         topSpeed = 0;
+    }
+
+    private async void Start()
+    {
+        await TurnOnGPS();
+
+        Loop();
+    }
+    private async Task TurnOnGPS()
+    {
+        PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+
+        if (status == PermissionStatus.Denied)
+        {
+            return;
+        }
+
+        if (await CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromSeconds(0.1), 1, true, new ListenerSettings
+        {
+            ActivityType = ActivityType.AutomotiveNavigation,
+            AllowBackgroundUpdates = true,
+            DeferLocationUpdates = false,
+            ListenForSignificantChanges = false,
+            PauseLocationUpdatesAutomatically = false,
+        }))
+        {
+            CrossGeolocator.Current.PositionChanged += (s, e) => {
+                double metersPerSecond = e.Position.Speed;
+                double kilometersPerHour = metersPerSecond * 3.6;
+                //label.Text = kilometersPerHour.ToString("0.0");
+                gpsSpeed = (float)kilometersPerHour;
+            };
+        }
     }
 
     private async void Loop()
@@ -59,31 +91,5 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void TurnOnGPS()
-    {
-        PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-
-        if (status == PermissionStatus.Denied)
-        {
-            return;
-        }
-
-        if (await CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromSeconds(0.1), 1, true, new ListenerSettings
-        {
-            ActivityType = ActivityType.AutomotiveNavigation,
-            AllowBackgroundUpdates = true,
-            DeferLocationUpdates = false,
-            ListenForSignificantChanges = false,
-            PauseLocationUpdatesAutomatically = false,
-        }))
-        {
-            CrossGeolocator.Current.PositionChanged += (s, e) => {
-                double metersPerSecond = e.Position.Speed;
-                double kilometersPerHour = metersPerSecond * 3.6;
-                //label.Text = kilometersPerHour.ToString("0.0");
-                gpsSpeed = (float)kilometersPerHour;
-            };
-        }
-    }
 }
 

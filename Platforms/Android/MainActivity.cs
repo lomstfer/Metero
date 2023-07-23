@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Webkit;
+using Plugin.CurrentActivity;
 
 namespace Metero;
 
@@ -12,6 +13,8 @@ public class MainActivity : MauiAppCompatActivity
     {
         Window.SetStatusBarColor(Android.Graphics.Color.Black);
         Window.SetNavigationBarColor(Android.Graphics.Color.Black);
+
+        CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
         base.OnCreate(savedInstanceState);
     }
