@@ -56,7 +56,6 @@ public partial class MainPage : ContentPage
             CrossGeolocator.Current.PositionChanged += (s, e) => {
                 double metersPerSecond = e.Position.Speed;
                 double kilometersPerHour = metersPerSecond * 3.6;
-                //label.Text = kilometersPerHour.ToString("0.0");
                 gpsSpeed = (float)kilometersPerHour;
             };
         }

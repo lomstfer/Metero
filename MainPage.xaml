@@ -27,17 +27,16 @@
                 TextColor="#b03131"
                 FontFamily="BaiJamjuree-Medium"/>
 
-            <Button
+            <ImageButton
+                Source="reset.svg"
+                Aspect="Center"
+                CornerRadius="5"
+
                 AbsoluteLayout.LayoutBounds="1, 0"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 
-                Text="RESET"
                 Clicked="OnResetTopSpeed"
                 BackgroundColor="#b03131"
-                FontSize="25"
-                FontFamily="BaiJamjuree-Medium"
-                TextColor="#fff"
-                
                 />
 
         </AbsoluteLayout>

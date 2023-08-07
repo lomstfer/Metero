@@ -6,13 +6,13 @@ using Plugin.CurrentActivity;
 
 namespace Metero;
 
-[Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
+[Activity(Theme = "@style/SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
 public class MainActivity : MauiAppCompatActivity
 {
     protected override void OnCreate(Bundle savedInstanceState)
     {
-        Window.SetStatusBarColor(Android.Graphics.Color.Black);
-        Window.SetNavigationBarColor(Android.Graphics.Color.Black);
+        Window.SetStatusBarColor(new Android.Graphics.Color { R=31, G=31, B=31, A=255 });
+        Window.SetNavigationBarColor(new Android.Graphics.Color { R = 31, G = 31, B = 31, A = 255 });
 
         CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
