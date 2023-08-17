@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Metero.MainPage"
-             BackgroundColor="#1f1f1f"
-             >
-        <AbsoluteLayout
+
+<ContentPage 
+    x:Class="Metero.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#1f1f1f"
+    >
+
+
+    <AbsoluteLayout
             Margin="30"
             >
-            <Label
+                
+        <Label
                 AbsoluteLayout.LayoutBounds="0.5, 0.4"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 
@@ -17,7 +22,7 @@
                 TextColor="#ed5353"
                 FontFamily="BaiJamjuree-Medium"/>
 
-            <Label
+        <Label
                 AbsoluteLayout.LayoutBounds="0.5, 0.6"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 
@@ -27,7 +32,7 @@
                 TextColor="#b03131"
                 FontFamily="BaiJamjuree-Medium"/>
 
-            <ImageButton
+        <ImageButton
                 Source="reset.svg"
                 Aspect="Center"
                 CornerRadius="5"
@@ -39,5 +44,20 @@
                 BackgroundColor="#b03131"
                 />
 
-        </AbsoluteLayout>
+        <Button
+                AbsoluteLayout.LayoutBounds="0.5, 0.9"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                
+                x:Name="UnitsLabelButton"
+                Text=""
+                FontSize="50"
+                BackgroundColor="#00000000"
+                BorderColor="#00000000"
+                Clicked="OnChangeUnits"
+                TextColor="#787878"
+                FontFamily="BaiJamjuree-Medium"/>
+
+
+
+    </AbsoluteLayout>
 </ContentPage>

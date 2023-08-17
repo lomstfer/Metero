@@ -8,16 +8,25 @@ namespace Metero;
 
 public partial class MainPage : ContentPage
 {
-    float gpsSpeed = 0;
+    float gpsSpeed = 133;
     float visualSpeed = 0;
 
     float topSpeed = 0;
+
+    bool isKPH = true;
 
     public MainPage()
     {
         InitializeComponent();
         Start();
     }
+
+    static float NextFloat(float min, float max) {
+        System.Random random = new System.Random();
+        double val = (random.NextDouble() * (max - min) + min);
+        return (float)val;
+    }
+
 
     private float Lerp(float firstFloat, float secondFloat, float by)
     {
@@ -26,12 +35,22 @@ public partial class MainPage : ContentPage
 
     private void OnResetTopSpeed(object o, EventArgs e)
     {
+        gpsSpeed -= NextFloat(0, 10);
         topSpeed = 0;
     }
 
     private async void Start()
     {
-        await TurnOnGPS();
+        string oauthToken = await SecureStorage.Default.GetAsync("isKPH");
+        if (oauthToken != null) {
+            isKPH = oauthToken == "1";
+        }
+        UnitsLabelButton.Dispatcher.Dispatch(() =>
+        {
+            UnitsLabelButton.Text = isKPH ? "kph" : "mph";
+        });
+
+        //await TurnOnGPS();
 
         Loop();
     }
@@ -73,7 +92,7 @@ public partial class MainPage : ContentPage
 
             SpeedLabel.Dispatcher.Dispatch(() =>
             {
-                SpeedLabel.Text = visualSpeed.ToString("0");
+                SpeedLabel.Text = (isKPH ? visualSpeed : visualSpeed * 0.621371192).ToString("0");
             });
 
             if (gpsSpeed > topSpeed)
@@ -83,12 +102,20 @@ public partial class MainPage : ContentPage
 
             TopSpeedLabel.Dispatcher.Dispatch(() =>
             {
-                TopSpeedLabel.Text = topSpeed.ToString("0.0");
+                TopSpeedLabel.Text = (isKPH ? topSpeed : topSpeed * 0.621371192).ToString("0.0");
             });
 
             await Task.Delay(10);
         }
     }
 
+    private void OnChangeUnits(object o, EventArgs e) {
+        isKPH = !isKPH;
+        UnitsLabelButton.Dispatcher.Dispatch(() =>
+        {
+            UnitsLabelButton.Text = isKPH ? "kph" : "mph";
+        });
+        SecureStorage.Default.SetAsync("isKPH", isKPH ? "1" : "0");
+    }
 }
 
